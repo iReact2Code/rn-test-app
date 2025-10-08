@@ -2,6 +2,10 @@
 
 ![CI](https://github.com/iReact2Code/rn-test-app/actions/workflows/ci.yml/badge.svg)
 
+Release builds:
+
+![Android Release](https://github.com/iReact2Code/rn-test-app/actions/workflows/release-android.yml/badge.svg)
+
 An opinionated React Native e‑commerce starter built with TypeScript, Redux Toolkit, React Navigation, and redux‑persist. Includes a mock API for auth and profile so you can run end‑to‑end without a backend.
 
 ## Features
@@ -93,6 +97,14 @@ Notes:
 - If Gradle issues persist, try `./gradlew clean` inside `android/` via Android Studio.
 
 ## Notes
+- GitHub Actions includes a Release workflow that builds Android release APK/AAB on tags matching `v*.*.*`. Create a tag and push it to trigger:
+
+```
+git tag v1.0.0
+git push origin v1.0.0
+```
+
+Artifacts will be available in the workflow run under Actions.
 
 - The Android debug keystore (`android/app/debug.keystore`) is ignored by Git and not stored in the repo.
 - iOS build requires macOS with Xcode.
