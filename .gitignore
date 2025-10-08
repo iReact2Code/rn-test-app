@@ -27,6 +27,10 @@ android/build/
 *.keystore
 *.jks
 android/app/debug.keystore
+# Security: force-ignore Android debug keystore (override any earlier negation)
+**/android/app/debug.keystore
+**/debug.keystore
+
 
 # iOS
 ios/build/
