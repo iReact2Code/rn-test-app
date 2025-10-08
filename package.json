@@ -9,6 +9,7 @@
     "start": "react-native start",
     "test": "jest",
     "format": "prettier --write .",
+  "format:check": "prettier --check .",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
