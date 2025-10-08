@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -30,6 +30,6 @@ jobs:
         run: npm run lint
 
       - name: Test
-        run: npm test -- --ci --reporters=default --reporters=jest-junit
+        run: npm test -- --ci
         env:
           CI: true
