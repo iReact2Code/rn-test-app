@@ -8,12 +8,19 @@ import ProductDetailsScreen from '../screens/ProductDetailsScreen';
 import CartScreen from '../screens/CartScreen';
 import CheckoutScreen from '../screens/CheckoutScreen';
 import UserCenterScreen from '../screens/UserCenterScreen';
+import SplashScreen from '../screens/SplashScreen';
+import LimitedOffersScreen from '../screens/LimitedOffersScreen';
+import LoginScreen from '../screens/LoginScreen';
+import RegisterScreen from '../screens/RegisterScreen';
 
 export type RootStackParamList = {
+  Splash: undefined;
   Home: undefined;
-  ProductDetails: { id: string };
+  ProductDetails: { id: string; offerId?: string; priceOverride?: number };
   Cart: undefined;
   Checkout: undefined;
+  Login: undefined;
+  Register: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -53,7 +60,12 @@ function renderUserButton() {
 
 function StackGroup() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="Splash">
+      <Stack.Screen
+        name="Splash"
+        component={SplashScreen}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="Home"
         component={HomeScreen}
@@ -72,6 +84,16 @@ function StackGroup() {
       />
       <Stack.Screen name="Cart" component={CartScreen} />
       <Stack.Screen name="Checkout" component={CheckoutScreen} />
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{ title: 'Login' }}
+      />
+      <Stack.Screen
+        name="Register"
+        component={RegisterScreen}
+        options={{ title: 'Register' }}
+      />
     </Stack.Navigator>
   );
 }
@@ -101,6 +123,7 @@ export default function RootNavigator() {
   return (
     <Drawer.Navigator screenOptions={{ headerShown: false }}>
       <Drawer.Screen name="Shop" component={StackGroup} />
+      <Drawer.Screen name="Limited Offers" component={LimitedOffersScreen} />
       <Drawer.Screen name="UserCenter" component={UserCenterStack} />
     </Drawer.Navigator>
   );

@@ -63,6 +63,16 @@ export default function HomeScreen({ navigation }: Props) {
 
   return (
     <SafeAreaView style={styles.container}>
+      <TouchableOpacity
+        style={styles.banner}
+        onPress={() =>
+          navigation.getParent()?.navigate('Limited Offers' as never)
+        }
+      >
+        <Text style={styles.bannerText}>
+          🔥 Limited Offers — Shop deals now
+        </Text>
+      </TouchableOpacity>
       <FlatList
         data={PRODUCTS}
         keyExtractor={(item) => item.id}
@@ -84,6 +94,13 @@ export default function HomeScreen({ navigation }: Props) {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f6f8fa' },
   listContent: { padding: 12 },
+  banner: {
+    margin: 12,
+    backgroundColor: '#fde68a',
+    borderRadius: 10,
+    padding: 12,
+  },
+  bannerText: { fontWeight: '700', color: '#7c2d12' },
   headerActions: {
     flexDirection: 'row',
     alignItems: 'center',

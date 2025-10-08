@@ -54,4 +54,20 @@ describe('cartSlice', () => {
     expect(selectCartCount(root)).toBe(2);
     expect(selectCartSubtotal(root)).toBe(20);
   });
+
+  it('treats offer variant as unique and uses discounted price', () => {
+    let state = reducer(undefined, { type: 'init' } as any);
+    const offerVariant = { ...product, id: 'p1#offer:o1', price: 7.5 };
+    state = reducer(state, addToCart(product)); // regular
+    state = reducer(state, addToCart(offerVariant)); // offer
+    const root = { cart: state } as any;
+    // Two distinct items, quantity 1 each
+    expect(selectCartCount(root)).toBe(2);
+    // Subtotal reflects 10 + 7.5
+    expect(selectCartSubtotal(root)).toBeCloseTo(17.5);
+    // Ensure keys present separately
+    expect(Object.keys(state.items)).toEqual(
+      expect.arrayContaining(['p1', 'p1#offer:o1']),
+    );
+  });
 });

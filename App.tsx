@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 import { store, persistor } from './src/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import RootNavigator from './src/navigation/RootNavigator';
+import ErrorBoundary from './src/components/ErrorBoundary';
+import { ToastProvider } from './src/components/Toast';
 
 enableScreens(true);
 
@@ -12,9 +14,13 @@ function App(): React.JSX.Element {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <NavigationContainer>
-          <RootNavigator />
-        </NavigationContainer>
+        <ErrorBoundary>
+          <ToastProvider>
+            <NavigationContainer>
+              <RootNavigator />
+            </NavigationContainer>
+          </ToastProvider>
+        </ErrorBoundary>
       </PersistGate>
     </Provider>
   );

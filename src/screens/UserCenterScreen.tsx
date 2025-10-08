@@ -14,9 +14,11 @@ import {
   removeAddress,
   updateProfile,
 } from '../store/slices/userSlice';
+import { useToast } from '../components/Toast';
 
 export default function UserCenterScreen() {
   const dispatch = useAppDispatch();
+  const { show } = useToast();
   const addresses = useAppSelector((s) => s.user.addresses);
   const profile = useAppSelector((s) => s.user.profile);
   const [name, setName] = React.useState(profile?.name || '');
@@ -59,6 +61,7 @@ export default function UserCenterScreen() {
             onPress={() => {
               dispatch(updateProfile({ name, phone }));
               setEditing(false);
+              show('Profile saved');
             }}
           >
             <Text style={styles.saveBtnText}>Save</Text>
@@ -110,6 +113,7 @@ export default function UserCenterScreen() {
             setLine1('');
             setCity('');
             setCountry('');
+            show('Address added');
           }}
         >
           <Text style={styles.addBtnText}>Add</Text>
@@ -127,7 +131,10 @@ export default function UserCenterScreen() {
               {item.line1}, {item.city}, {item.country}
             </Text>
             <TouchableOpacity
-              onPress={() => dispatch(removeAddress(item.id))}
+              onPress={() => {
+                dispatch(removeAddress(item.id));
+                show('Address removed');
+              }}
               style={styles.removeBtn}
             >
               <Text>Remove</Text>
