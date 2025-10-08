@@ -1,0 +1,11 @@
+# Ignore generated and native build folders
+android/
+ios/
+node_modules/
+
+# Ignore test mocks to avoid Babel parser config issues
+__mocks__/
+
+# Ignore JS config files parsed by Babel parser
+metro.config.js
+babel.config.js
