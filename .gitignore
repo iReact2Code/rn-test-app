@@ -26,6 +26,7 @@ android/app/build/
 android/build/
 *.keystore
 *.jks
+android/app/debug.keystore
 
 # iOS
 ios/build/

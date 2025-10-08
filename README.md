@@ -1,85 +1,99 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# React Native E‑commerce App
 
-# Getting Started
+![CI](https://github.com/iReact2Code/rn-test-app/actions/workflows/ci.yml/badge.svg)
 
-> **Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+An opinionated React Native e‑commerce starter built with TypeScript, Redux Toolkit, React Navigation, and redux‑persist. Includes a mock API for auth and profile so you can run end‑to‑end without a backend.
 
-## Step 1: Start the Metro Server
+## Features
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+- Product list and details
+- Cart and checkout, with guard to prevent empty-cart checkout
+- Drawer navigation with a dedicated User Center section
+- Authentication (login/register) using a mock API
+- User Center: edit personal info (name, phone) and manage addresses
+- State management with Redux Toolkit and session persistence via redux‑persist
+- Unit tests (Jest + React Testing Library)
 
-To start Metro, run the following command from the _root_ of your React Native project:
+## Tech Stack
 
-```bash
-# using npm
+- React Native 0.74, React 18, TypeScript
+- @react-navigation/native (+ native-stack, drawer)
+- @reduxjs/toolkit, react-redux, redux-persist
+- AsyncStorage, react-native-reanimated, react-native-gesture-handler, react-native-screens, safe-area-context
+- Jest (+ ts support) and @testing-library/react-native
+
+## Project Structure (high level)
+
+```
+my-app/
+   App.tsx                     # Provider + Navigation + PersistGate
+   src/
+      navigation/RootNavigator.tsx
+      screens/                  # Home, ProductDetails, Cart, Checkout, UserCenter, Login, Register
+      components/               # ProductCard, NetworkImage, CartIcon
+      store/                    # Redux store + slices (cart, user) + selectors
+      services/api.ts           # Mock API (auth, profile, addresses)
+      data/                     # Sample products
+      types/
+```
+
+## Scripts
+
+From the `my-app` folder:
+
+```
+npm start        # Start Metro
+npm run android  # Build & run Android (Windows/Linux/macOS)
+npm run ios      # Build & run iOS (macOS only)
+npm test         # Run unit tests
+npm run lint     # ESLint
+npm run typecheck# TypeScript type check
+npm run format   # Prettier
+```
+
+## Getting Started (Windows + Android)
+
+1) Ensure the React Native environment is installed (Android Studio, SDKs, AVD; ANDROID_HOME and platform-tools on PATH).
+
+2) Start Metro in one terminal:
+
+```
 npm start
-
-# OR using Yarn
-yarn start
 ```
 
-## Step 2: Start your Application
+3) In another terminal, with an emulator running (or a device connected), run:
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
-
-```bash
-# using npm
+```
 npm run android
-
-# OR using Yarn
-yarn android
 ```
 
-Windows/Android quick tips:
+If Metro is already running, the CLI will connect automatically.
 
-- Install Android Studio, then install the Android SDK Platform and a recent emulator image (e.g., Pixel 6a, API 34+). Ensure ANDROID_HOME is set and platform-tools is on PATH.
-- Start an emulator from Android Studio (AVD Manager) before running the command above, or plug in a device with USB debugging enabled.
-- If you see SDK or PATH errors, open a new terminal after installing tools so environment variables are picked up.
+## Authentication & Mock API
 
-### For iOS
+- Login/Register work against `src/services/api.ts` (in‑memory mock). No network calls.
+- User profile updates (name/phone) and address CRUD persist for the current app session (and across restarts via redux‑persist).
 
-```bash
-# using npm
-npm run ios
+## Testing
 
-# OR using Yarn
-yarn ios
+```
+npm test
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+Notes:
+- The project is configured for TypeScript tests.
+- See `__tests__/userSlice.test.ts` for example reducer tests.
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+## Troubleshooting
 
-## Step 3: Modifying your App
+- CLI warning about `@react-native-community/cli`: we include it in devDependencies.
+- "Dev server already running on 8081": that’s fine; React Native will reuse it.
+- Stuck bundle / white screen: open the dev menu (Ctrl+M on Windows) and tap Reload.
+- Missing Android SDK tools: open Android Studio, install latest SDK Platform + Build‑Tools, then restart your terminal.
+- If Gradle issues persist, try `./gradlew clean` inside `android/` via Android Studio.
 
-Now that you have successfully run the app, let's modify it.
+## Notes
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+- The Android debug keystore (`android/app/debug.keystore`) is ignored by Git and not stored in the repo.
+- iOS build requires macOS with Xcode.
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
